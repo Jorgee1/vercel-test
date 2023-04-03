@@ -16,15 +16,10 @@ const appRouter = t.router({
 
 
 export default function handler(req: Request) {
-    return new Response(
-        JSON.stringify({
-          message: 'Hello, world!',
-        }),
-        {
-          status: 200,
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      )
+    return fetchRequestHandler({
+        endpoint: '',
+        req: req,
+        router: appRouter,
+        createContext: () => ({})
+    })
 }
