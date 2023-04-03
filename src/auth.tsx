@@ -11,12 +11,15 @@ const authContext = React.createContext(authParams)
 export const useAuthContext = () => React.useContext(authContext)
 
 export const AuthProvider = ({children}) => {
-    const [isAuthed, setAuth] = React.useState(false)
+    const localAuthed = window.localStorage.getItem('isAuthed')
+    const [isAuthed, setAuth] = React.useState(localAuthed === 't')
 
     const logIn = () => {
+        window.localStorage.setItem('isAuthed', 't')
         setAuth(true)
     }
     const logOut = () => {
+        window.localStorage.setItem('isAuthed', 'f')
         setAuth(false)
     }
 
