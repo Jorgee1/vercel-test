@@ -8,8 +8,7 @@ const appRouter = t.router({
         .query(() => 'FROM TRPC')
 })
 
-
-addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
     return event.respondWith(fetchRequestHandler({
         endpoint: '/trpc',
         req: event.request,
