@@ -10,7 +10,7 @@ const authContext = React.createContext(authParams)
 
 export const useAuthContext = () => React.useContext(authContext)
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({children}: {children: React.ReactElement}) => {
     const localAuthed = window.localStorage.getItem('isAuthed')
     const [isAuthed, setAuth] = React.useState(localAuthed === 't')
 

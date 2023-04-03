@@ -2,7 +2,11 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter, Link, useNavigate } from 'react-router-dom'
 import { AuthProvider, ProtectedRoute, useAuthContext } from './auth'
+import type { AppRouter } from '../trpc'
+import { createTRPCReact, httpBatchLink } from '@trpc/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+const trpc = createTRPCReact<AppRouter>()
 
 const Nav = () => {
     const { logOut } = useAuthContext()
@@ -20,11 +24,27 @@ const Nav = () => {
 }
 
 const Home = () => {
+    const [currentRoll, setRoll] = React.useState(0)
+    const [isDisabled, setEnable] = React.useState(false)
+    const rollMutation = trpc.roll.useMutation({
+        onSuccess: (result) => {
+            setRoll(result)
+            setEnable(false)
+        }
+    })
+
+    const click = () => {
+        rollMutation.mutate()
+        setEnable(true)
+    }
+
     return <div className='main'>
         <h1>Protected View</h1>
         <Nav/>
-        <div>
+        <div className='center-text'>
             <h3>Content</h3>
+            <button onClick={click} disabled={isDisabled}>Do a Barrerl Roll</button>
+            <div>Roll: {currentRoll}</div>
         </div>
     </div>
 }
@@ -59,6 +79,10 @@ const LogIn = () => {
 }
 
 const App = () => {
+    const [queryClient] = React.useState(() => new QueryClient())
+    const [trpcClient] = React.useState(() => trpc.createClient({
+        links: [httpBatchLink({url: 'https://vercel-test-henna.vercel.app/api'})]
+    }))
 
     const router = createBrowserRouter([
         {
@@ -83,9 +107,13 @@ const App = () => {
 
 
     return <>
-        <AuthProvider>
-            <RouterProvider router={router}/>
-        </AuthProvider>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider>
+                    <RouterProvider router={router}/>
+                </AuthProvider>
+            </QueryClientProvider>
+        </trpc.Provider>
     </>
 }
 
