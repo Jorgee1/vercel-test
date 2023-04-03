@@ -81,7 +81,7 @@ const LogIn = () => {
 const App = () => {
     const [queryClient] = React.useState(() => new QueryClient())
     const [trpcClient] = React.useState(() => trpc.createClient({
-        links: [httpBatchLink({url: 'https://vercel-test-henna.vercel.app/api'})]
+        links: [httpBatchLink({url: '/api'})]
     }))
 
     const router = createBrowserRouter([
