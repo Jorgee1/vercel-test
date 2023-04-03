@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "scripts": {
-    "build": "esbuild server/index.ts --bundle --outdir=dist --sourcemap"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jorgee1/vercel-test.git"
