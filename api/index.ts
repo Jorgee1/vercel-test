@@ -17,7 +17,7 @@ const appRouter = t.router({
 
 export default function handler(req: Request) {
     return fetchRequestHandler({
-        endpoint: '/trpc',
+        endpoint: '/',
         req: req,
         router: appRouter,
         createContext: () => ({})
