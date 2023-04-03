@@ -1,4 +1,3 @@
-import { randomBytes } from 'crypto'
 import { initTRPC } from '@trpc/server'
 
 
@@ -8,5 +7,5 @@ export const appRouter = t.router({
     greeting: t.procedure
         .query(() => 'FROM TRPC'),
     roll: t.procedure
-        .query(() => randomBytes(100).toString('base64'))
+        .query(() => Math.floor(Math.random() *100))
 })
