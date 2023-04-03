@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "scripts": {
+    "build": "esbuild server/index.ts --bundle --outdir=api --sourcemap"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jorgee1/vercel-test.git"
@@ -27,6 +30,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
+    "start-server-and-test": "^2.0.0",
     "zod": "^3.21.4"
   }
 }
