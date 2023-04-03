@@ -15,11 +15,11 @@ const appRouter = t.router({
 })
 
 
-addEventListener('fetch', (event) => {
-    return event.respondWith(fetchRequestHandler({
+export default function handler(req: Request) {
+    return fetchRequestHandler({
         endpoint: '/trpc',
-        req: event.request,
+        req: req,
         router: appRouter,
         createContext: () => ({})
-    }))
-})
+    })
+}
