@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "esbuild server/index.ts --bundle --outdir=api --sourcemap"
+    "build": "esbuild server/index.ts --bundle --outdir=dist --sourcemap"
   },
   "repository": {
     "type": "git",
